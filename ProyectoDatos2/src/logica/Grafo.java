@@ -14,25 +14,23 @@ import java.util.ArrayList;
 public class Grafo {
   
    
-    public int D[];// aqui van quedando los costos minimos
+    public int costosMinimos[];// aqui van quedando los costos minimos
     private int[] vertices; //se guardan los vertices
-    private int[][] p; //se utiliza para sacar los caminos
+    private int[][] caminos; //se utiliza para sacar los caminos
     private int[][] costos; //matriz donde estan los costos de ir de un vertice a otro
-    private int[] vertices2; //aqui van quedando los vertices visitados
-    private int w; //contiene el vertice visitado actualmente
+    private int[] verticesVisitados; //aqui van quedando los vertices visitados
+    private int verticeVisitado; //contiene el vertice visitado actualmente
     
     private ArrayList<Vertice> lista;//lista de vertices
     
     public Grafo(){
         lista = new ArrayList<Vertice>();
-    }
-    /*public Grafo(){
         
-        vertices = new int[8];
-        vertices2 = new int[8];
-        p = new int[8][8];
-        costos = new int[8][8];
-        D = new int[8];
+        vertices = new int[24];
+        verticesVisitados = new int[24];
+        caminos = new int[24][24];
+        costos = new int[24][24];
+        costosMinimos = new int[24];
         
         for (int i = 1; i <= 7; i++){
             for (int j =1; j <=7; j++){
@@ -52,57 +50,57 @@ public class Grafo {
         costos[6][3] = 250;
         costos[7][5] = 300;
         
-        for (int i = 1; i < 7; i++) {
+        for (int i = 1; i < 25; i++) {
             vertices[i] = i;
-            vertices2[i] = i;
+            this.verticesVisitados[i] = i;
         }
-    }*/
+    }
 
     public void dijkstra(){
         
         int[] conjunto = new int[8];
         int posconjunto = 1;
         vertices[posconjunto] = 0;
-        D[1] = 0;
+        this.costosMinimos[1] = 0;
         
         for (int i = 2; i <= 7; i++) {
-            D[i] = costos[1][i];
+            this.costosMinimos[i] = costos[1][i];
         }
         
         for (int i = 1; i <= 7-1; i++) {
-            w = buscaMinimo();
+            this.verticeVisitado = buscaMinimo();
             posconjunto++;
-            conjunto[posconjunto] = w;
-            vertices2[w] = 0;
+            conjunto[posconjunto] = this.verticeVisitado;
+            this.verticesVisitados[this.verticeVisitado] = 0;
             
             for (int v = 7 - posconjunto; v <= 7; v++) {
-                D[v] = min(D[v], D[w] + costos[w][v]);
+                this.costosMinimos[v] = min(this.costosMinimos[v], this.costosMinimos[this.verticeVisitado] + costos[this.verticeVisitado][v]);
             }
         }
     }
     
     public void masCorto(){
         
-        int i, j, k;
+
         int[][] a = new int [8][8];
         
-        for (i = 1; i <= 7; i++) {
-            for (j = 1; j <= 7; j++) {
+        for (int i = 1; i <= 7; i++) {
+            for (int j = 1; j <= 7; j++) {
                 a[i][j] = costos[i][j];
-                p[i][j] = 0;
+                this.caminos[i][j] = 0;
             }
         }
         
-        for (i = 1; i <= 7; i++) {
+        for (int i = 1; i <= 7; i++) {
            a[i][i] = 0; 
         }
         
-        for (k = 1; k <= 7; k++) {
-            for (i = 1; i <= 7; i++) {
-                for (j = 1; j <= 7; j++) {
+        for (int k = 1; k <= 7; k++) {
+            for (int i = 1; i <= 7; i++) {
+                for (int j = 1; j <= 7; j++) {
                     if ((a[i][k] + a[k][j]) < (a[i][j])) {
                         a[i][j] = a[i][k] + a[k][j];
-                        p[i][j] = k;
+                        this.caminos[i][j] = k;
                     }
                 }
             }
@@ -113,7 +111,7 @@ public class Grafo {
         
         int k;
         char c = ' ';
-        k = p[pi][pj];
+        k = this.caminos[pi][pj];
         
         if (k == 0) {
             return;
@@ -132,9 +130,9 @@ public class Grafo {
         int minimo = 10000, pos = 10000;
         
         for (int i = 1; i <= 7; i++) {
-            if (vertices2[i] != 0) {
-                if (D[i] < minimo) {
-                    minimo = D[i];
+            if (this.verticesVisitados[i] != 0) {
+                if (this.costosMinimos[i] < minimo) {
+                    minimo = this.costosMinimos[i];
                     pos = 1;
                 }
             }
