@@ -5,6 +5,8 @@
  */
 package ui;
 
+import logica.Grafo;
+
 /**
  *
  * @author jgm16
@@ -15,7 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       Grafo grafo = new Grafo();
     }
     
 }

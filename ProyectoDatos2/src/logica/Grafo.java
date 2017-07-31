@@ -6,6 +6,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -15,26 +16,37 @@ public class Grafo {
   
    
     public int costosMinimos[];// aqui van quedando los costos minimos
-    private int[] vertices; //se guardan los vertices
+    private Vertice[] vertices; //se guardan los vertices
     private int[][] caminos; //se utiliza para sacar los caminos
     private int[][] costos; //matriz donde estan los costos de ir de un vertice a otro
     private int[] verticesVisitados; //aqui van quedando los vertices visitados
     private int verticeVisitado; //contiene el vertice visitado actualmente
+    private String [] nombresUbicaciones;
     
     private ArrayList<Vertice> lista;//lista de vertices
     
     public Grafo(){
         lista = new ArrayList<Vertice>();
+        vertices = new Vertice[25];
+        nombresUbicaciones = new String[25];
+        verticesVisitados = new int[25];
+        caminos = new int[25][25];
+        costos = new int[25][25];
+        costosMinimos = new int[25];
         
-        vertices = new int[24];
-        verticesVisitados = new int[24];
-        caminos = new int[24][24];
-        costos = new int[24][24];
-        costosMinimos = new int[24];
+       this.cargarCostos();
+       this.cargarUbicaciones();
+       this.insertarUbicaciones();
+      
         
-        for (int i = 1; i <= 7; i++){
-            for (int j =1; j <=7; j++){
-                
+       
+    }
+    
+    private void cargarCostos(){
+        
+         for (int i = 1; i <= 24; i++){
+            for (int j =1; j <= 24; j++){
+ 
                 costos[i][j] = 10000;
             }
         }
@@ -49,18 +61,58 @@ public class Grafo {
         costos[5][6] = 175;
         costos[6][3] = 250;
         costos[7][5] = 300;
+    }
+    
+    //Carga el nombre de las ubicaciones
+    private void cargarUbicaciones(){
         
-        for (int i = 1; i < 25; i++) {
-            vertices[i] = i;
-            this.verticesVisitados[i] = i;
+        nombresUbicaciones[0] = null;
+        nombresUbicaciones[1] = "B";
+        nombresUbicaciones[2] = "C";
+        nombresUbicaciones[3] ="D";
+        nombresUbicaciones[4] ="E";
+        nombresUbicaciones[5] ="F";
+        nombresUbicaciones[6] ="G";
+        nombresUbicaciones[7] ="H";
+        nombresUbicaciones[8] ="I";
+        nombresUbicaciones[9] ="J";
+        nombresUbicaciones[10] ="K";
+        nombresUbicaciones[11] ="L";
+        nombresUbicaciones[12] ="M";
+        nombresUbicaciones[13] ="N";
+        nombresUbicaciones[14] ="Ñ";
+        nombresUbicaciones[15] ="O";
+        nombresUbicaciones[16] ="P";
+        nombresUbicaciones[17] ="Q";
+        nombresUbicaciones[18] ="R";
+        nombresUbicaciones[19] ="S";
+        nombresUbicaciones[20] ="T";
+        nombresUbicaciones[21] ="U";
+        nombresUbicaciones[22] ="V";
+        nombresUbicaciones[23] ="W";
+        nombresUbicaciones[24] ="X";
+    }
+    
+    //insertar el nombre de las ubicaciones dentro del arreglo de vertices
+    private void insertarUbicaciones(){
+        
+         for (int i = 1; i < 25; i++) {
+             for (int j = 0; j < this.nombresUbicaciones[i].length(); j++) {
+                 //Se crea objetos vertice con el nombre de la etiqueta ya establecida
+                 Vertice vertice = new Vertice(i,this.nombresUbicaciones[i]);
+                 this.vertices[i] = vertice;
+                 System.out.println("Numero vertice:" + vertices[i].getNumeroVertice() + " Etiqueta: " + vertices[i].getEtiqueta());
+                 this.verticesVisitados[i] = i; 
+             }
         }
     }
+   
 
     public void dijkstra(){
         
         int[] conjunto = new int[8];
         int posconjunto = 1;
-        vertices[posconjunto] = 0;
+        //vertices[posconjunto] = 0;
         this.costosMinimos[1] = 0;
         
         for (int i = 2; i <= 7; i++) {
