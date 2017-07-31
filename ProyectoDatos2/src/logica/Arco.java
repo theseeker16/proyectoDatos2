@@ -10,5 +10,41 @@ package logica;
  * @author jgm16
  */
 public class Arco {
+    private int peso;
+    private Arco siguiente;
+    private Vertice punteroVertice;
+
+    public Arco(int ppeso,Vertice ppunteroVertice){
+        this.setPeso(ppeso);
+        this.setPunteroVertice(ppunteroVertice);
+        siguiente = null;
+        
+    }
+    public int getPeso() {
+        return peso;
+    }
+
+    public Arco getSiguiente() {
+        return siguiente;
+    }
+
+    public Vertice getPunteroVertice() {
+        return punteroVertice;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+
+    public void setSiguiente(Arco siguiente) {
+        this.siguiente = siguiente;
+    }
+
+    public void setPunteroVertice(Vertice punteroVertice) {
+        this.punteroVertice = punteroVertice;
+    }
+    
+    
+    
     
 }
