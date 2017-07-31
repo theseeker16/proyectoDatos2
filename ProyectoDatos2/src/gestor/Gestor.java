@@ -9,6 +9,6 @@ package gestor;
  *
  * @author jgm16
  */
-public class gestor {
+public class Gestor {
     
 }
