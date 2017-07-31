@@ -5,6 +5,8 @@
  */
 package logica;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author jgm16
@@ -19,7 +21,12 @@ public class Grafo {
     private int[] vertices2; //aqui van quedando los vertices visitados
     private int w; //contiene el vertice visitado actualmente
     
+    private ArrayList<Vertice> lista;//lista de vertices
+    
     public Grafo(){
+        lista = new ArrayList<Vertice>();
+    }
+    /*public Grafo(){
         
         vertices = new int[8];
         vertices2 = new int[8];
@@ -49,7 +56,7 @@ public class Grafo {
             vertices[i] = i;
             vertices2[i] = i;
         }
-    }
+    }*/
 
     public void dijkstra(){
         
@@ -143,6 +150,113 @@ public class Grafo {
         }else{
             return py;
         }
+    }
+    
+    //FUncionalidades del grafo
+    public ArrayList<Vertice> getLista() {
+        return lista;
+    }
+    
+    public String agregarVertice(Vertice pvertice){
+        if(this.estaVertice(pvertice)==true){
+            return "El nodo ya existe";
+        }else{
+            lista.add(pvertice);
+            return this.imprimirVertice(pvertice);
+        }
+    }
+    
+    public void agregarArcoSucesor(Vertice origen, Arco arco){
+        origen.setSucesor(arco);
+    }
+    
+    public void agregarArcoPredecesor(Vertice origen, Arco arco){
+        origen.setPredecesor(arco);
+    }
+    
+    public boolean estaVertice(Vertice pnodo){
+        for (int i = 0; i < lista.size(); i++) {
+            if(lista.get(i).getNumeroVertice() == pnodo.getNumeroVertice() && lista.get(i).getEtiqueta().equals(pnodo)){
+            return true;
+            }
+        }
+        return false;
+    }
+    
+    public String mostrarGrafo(){
+        String msj = "";        
+        for (int i = 0; i <= lista.size(); i++) {
+            msj = msj + imprimirVertice(lista.get(i));
+            
+        }
+        return msj;
+    }
+    
+    public String imprimirVertice(Vertice nodo){
+        String mensaje;
+        
+        mensaje = "********************"+"\n"
+                + "*Numero: "+nodo.getNumeroVertice()+"         *"+"\n"
+                + "*Etiqueta: "+nodo.getEtiqueta()+"       *"+"\n"
+                + "********************"+"\n"
+                + "          |"+"\n"
+                + "          v"+"\n"+"\n";
+        
+        
+        return mensaje;
+    }  
+    
+    public String imprimirArco(Vertice nodo, Arco arco){
+        String mensaje;
+        
+        mensaje = "*********************"+"                   " + "*********************"+"\n"
+                + "*    Nodo Origen    *"+"   *************   " + "*    Nodo Destino   *"+"\n"
+                + "*Numero: "+nodo.getNumeroVertice()+"          *"+"   * Peso: "+arco.getPeso()+" ->*   " + "*Numero: "+arco.getPunteroVertice().getNumeroVertice()+"          *"+"\n"
+                + "*Etiqueta: "+nodo.getEtiqueta()+"        *"+"   *************   " + "*Etiqueta: "+arco.getPunteroVertice().getEtiqueta()+"        *"+"\n"
+                + "*********************"+"                   " + "*********************"+"\n"+"\n";
+
+        return mensaje;
+    }
+    
+    public String ImprimirArcosNodo(Vertice nodo){
+        String msj = "";
+        
+        if(nodo.getPredecesor() == null){
+            msj = msj + "No hay vertices predecesores";
+        }else{
+            Arco aux ;
+            msj = msj + "-Predecesores"+ "\n";
+            
+            for (int i = 0; i < nodo.getPredecesor().size(); i++) {
+                 msj = msj + this.imprimirArco(nodo, nodo.getPredecesor().get(i));
+            }
+               
+            
+        }
+        
+        if(nodo.getSucesor() == null){
+            msj = msj + "No hay vertices sucesores";
+        }else{
+            Arco aux ;
+            msj = msj + "-Sucesores"+ "\n";
+            for (int i = 0; i < nodo.getSucesor().size(); i++) {
+                 msj = msj + this.imprimirArco(nodo, nodo.getSucesor().get(i));
+            }
+        }
+        
+        return msj;
+    }
+    
+    public Vertice getVertice(int numero, String etiqueta){
+        Vertice result = null;
+        
+        for (int i = 0; i < lista.size(); i++) {
+            if(lista.get(i).getNumeroVertice() == numero && lista.get(i).getEtiqueta().equals(etiqueta)){
+                return lista.get(i);
+            }
+        }
+        
+        return result;
     }
 }
 
