@@ -5,10 +5,16 @@
  */
 package gestor;
 
+import logica.Grafo;
+import logica.Vertice;
+import static ui.Main.br;
+
 /**
  *
  * @author jgm16
  */
 public class Gestor {
-    
+        Grafo grafo = new Grafo();
+        
+       
 }
