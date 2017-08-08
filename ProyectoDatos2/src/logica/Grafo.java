@@ -148,7 +148,6 @@ public class Grafo {
         }
     }
 
-
     public Vertice getVertice(int numero) {
         Vertice result = null;
         for (int i = 1; i < this.vertices.length; i++) {
@@ -160,7 +159,6 @@ public class Grafo {
         return result;
     }
 
-    
     public void dijkstra(Vertice origen) {
 
         int[] verticesNoVisitados = new int[25];// aqui se van guardando los vertices no visitados
@@ -171,8 +169,8 @@ public class Grafo {
             this.costosMinimos[i] = costos[origen.getNumeroVertice()][i];
         }
 
-        for (int i = 1; i < 24-1; i++) {
-            this.verticeVisitado = buscaMinimo();//deja en w el vertice no visitado con el menor costo en ese momento
+        for (int i = 1; i < 24 - 1; i++) {
+            this.verticeVisitado = buscaMinimo(origen.getNumeroVertice());//deja en w el vertice no visitado con el menor costo en ese momento
             posconjunto++;
             verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
 
@@ -184,9 +182,9 @@ public class Grafo {
     }
 
     //Busca el vertice con costo minimo de los no visitados
-    private int buscaMinimo() {
+    private int buscaMinimo(int origen) {
         int minimo = 10000, pos = 10000;
-        for (int i = 1; i <= 24; i++) {
+        for (int i = origen; i <= 24; i++) {
             if (this.verticesVisitados[i] != null) {
                 if (this.costosMinimos[i] < minimo) {
                     minimo = this.costosMinimos[i];

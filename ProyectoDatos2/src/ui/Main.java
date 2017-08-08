@@ -35,7 +35,7 @@ public class Main {
       
       grafo.dijkstra(origen);
       grafo.masCorto();
-  
+      
       int x = grafo.camino(origen.getNumeroVertice(),destino.getNumeroVertice());
       System.out.println("Camino corto :" + origen.getEtiqueta() + " ->" + x);
     
