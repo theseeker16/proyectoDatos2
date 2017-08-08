@@ -57,7 +57,7 @@ public class Vertice {
     }
 
     public void setSucesor(Arco psucesor) {
-        
+     
         if(sucesor == null){
             this.sucesor = new ArrayList<Arco>();
             this.sucesor.add(psucesor);

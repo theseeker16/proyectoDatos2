@@ -9,6 +9,8 @@ import gestor.Gestor;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import logica.Grafo;
+import logica.Vertice;
 
 /**
  *
@@ -21,20 +23,45 @@ public class Main {
      */
   Gestor gestor = new Gestor();
     public static void main(String[] args) throws IOException {
+      Grafo grafo = new Grafo();
       
-        int opcion = 0;
-        do {
-            System.out.println("1.Buscar una determinada ubicación");
-            System.out.println("2.Mostrar una determinada ubicación,");
-            System.out.println("3.Mostrar sus ubicaciones adyacentes");
-            System.out.println("4.Mostrar el camino mínimo");
-            System.out.println("5.Mostrar grafo");
-            System.out.println("6.Salir");
-            System.out.println("Digite una opcion");
-            opcion = Integer.parseInt(br.readLine());
-           
+      System.out.println("Ingrese el origen");
+      int posicion = Integer.parseInt(br.readLine());
+      Vertice origen = grafo.getVertice(posicion);
+      
+      System.out.println("Ingrese el destino");
+      posicion = Integer.parseInt(br.readLine());
+      Vertice destino = grafo.getVertice(posicion);
+      
+      grafo.dijkstra(origen);
+      grafo.masCorto();
+  
+      int x = grafo.caminos(origen.getNumeroVertice(),destino.getNumeroVertice());
+      System.out.println("Camino corto :" + origen.getEtiqueta() + " ->" + x);
+    
+      System.out.println("Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()]);
+          
      
-        } while (opcion != 4 );
+     
+   
+      
+    
+      
+//      grafo.caminos(origen.getNumeroVertice(), destino.getNumeroVertice());
+      
+//        int opcion = 0;
+//        do {
+//            System.out.println("1.Buscar una determinada ubicación");
+//            System.out.println("2.Mostrar una determinada ubicación,");
+//            System.out.println("3.Mostrar sus ubicaciones adyacentes");
+//            System.out.println("4.Mostrar el camino mínimo");
+//            System.out.println("5.Mostrar grafo");
+//            System.out.println("6.Salir");
+//            System.out.println("Digite una opcion");
+//            opcion = Integer.parseInt(br.readLine());
+//           
+//     
+//        } while (opcion != 4 );
         
        
     }

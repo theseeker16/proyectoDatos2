@@ -33,14 +33,14 @@ public class Grafo {
         nombresUbicaciones = new String[25];
         verticesVisitados = new Vertice[25];
         caminos = new int[25][25];
-        costos = new int[25][25];
+        costos = new int[25][25]; //Es la matriz de adyacencia
         costosMinimos = new int[25];
 
         this.cargarCostos();
         this.cargarUbicaciones();
         this.insertarUbicaciones();
         this.cargarArcos();
-        this.mostrarVertices();
+//        this.mostrarVertices();
 
     }
 
@@ -54,7 +54,7 @@ public class Grafo {
 
     //Carga el nombre de las ubicaciones
     private void cargarUbicaciones() {
-
+       
         nombresUbicaciones[1] = "Lameda Island";
         nombresUbicaciones[2] = "Scunir Island";
         nombresUbicaciones[3] = "Modulig Island";
@@ -174,32 +174,34 @@ public class Grafo {
         return msj;
     }
 
-    public Vertice getVertice(int numero, String etiqueta) {
+    public Vertice getVertice(int numero) {
         Vertice result = null;
         for (int i = 1; i < this.vertices.length; i++) {
-            if (vertices[i].getNumeroVertice() == numero && vertices[i].getEtiqueta().equalsIgnoreCase(etiqueta)) {
+            if (vertices[i].getNumeroVertice() == numero) {
                 return vertices[i];
             }
         }
 
         return result;
     }
-
-    public void dijkstra() {
+    
+    //quitar el void
+    public void dijkstra(Vertice origen) {
 
         int[] verticesNoVisitados = new int[25];// aqui se van guardando los vertices no visitados
         int posconjunto = 1;
 
-        this.costosMinimos[1] = 0;
+        this.costosMinimos[origen.getNumeroVertice()] = 0;
 
         for (int i = 1; i <= 24; i++) {
-            this.costosMinimos[i] = costos[1][i];
+            this.costosMinimos[i] = costos[origen.getNumeroVertice()][i];
         }
 
-        for (int i = 1; i <= 24 - 1; i++) {
-            this.verticeVisitado = buscaMinimo();
+        for (int i = 1; i <= 24-1; i++) {
+            this.verticeVisitado = buscaMinimo();//deja en w el vertice no visitado con el menor costo en ese momento
             posconjunto++;
-            verticesNoVisitados[posconjunto] = this.verticeVisitado;
+            verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
+            this.verticesVisitados[this.verticeVisitado] = null; //saca al vertice los no visitados
             //this.verticesVisitados[this.verticeVisitado] = 0;
 
             for (int v = 24 - posconjunto; v <= 24; v++) {
@@ -208,55 +210,13 @@ public class Grafo {
         }
 
     }
-
-    public void masCorto() {
-
-        int[][] a = new int[25][25];
-
-        for (int i = 1; i <= 24; i++) {
-            for (int j = 1; j <= 24; j++) {
-                a[i][j] = costos[i][j];
-                this.caminos[i][j] = 0;
-            }
-        }
-
-        for (int i = 1; i <= 24; i++) {
-            a[i][i] = 0;
-        }
-
-        for (int k = 1; k <= 24; k++) {
-            for (int i = 1; i <= 24; i++) {
-                for (int j = 1; j <= 24; j++) {
-                    if ((a[i][k] + a[k][j]) < (a[i][j])) {
-                        a[i][j] = a[i][k] + a[k][j];
-                        this.caminos[i][j] = k;
-                    }
-                }
-            }
-        }
-    }
-
-    public void caminos(int pi, int pj) {
-
-        int k;
-
-        k = this.caminos[pi][pj];
-
-        if (k == 0) {
-            return;
-        }
-
-        caminos(pi, k);
-        System.out.println(k);
-
-        caminos(k, pj);
-    }
-
+    
+    //Busca el vertice con costo minimo de los no visitados
     private int buscaMinimo() {
 
         int minimo = 10000, pos = 10000;
 
-        for (int i = 1; i <= 24; i++) {
+        for (int i = 1; i < 25; i++) {
             if (this.verticesVisitados[i] != null) {
                 if (this.costosMinimos[i] < minimo) {
                     minimo = this.costosMinimos[i];
@@ -268,6 +228,51 @@ public class Grafo {
         return pos;
     }
 
+    public void masCorto() {
+
+        int[][] a = new int[25][25];
+
+        for (int i = 1; i < 25; i++) {
+            for (int j = 1; j < 25; j++) {
+                a[i][j] = costos[i][j];
+                this.caminos[i][j] = 0;
+            }
+        }
+
+        for (int i = 1; i < 25; i++) {
+            a[i][i] = 0;
+        }
+
+        for (int k = 1; k < 25; k++) {
+            for (int i = 1; i < 25; i++) {
+                for (int j = 1; j < 25; j++) {
+                    if ((a[i][k] + a[k][j]) < (a[i][j])) {
+                        a[i][j] = a[i][k] + a[k][j];
+                        this.caminos[i][j] = k;
+                    }
+                }
+            }
+        }
+    }
+   
+    //imprime la ruta mas corta desde el vertice i hasta el j
+    public int caminos(int origen,int destino) {
+        int k;
+        
+        k = this.caminos[origen][destino];
+        if (k == 0) {
+            return 0;
+        }
+   
+             caminos(origen, k);
+        
+             caminos(destino,k );
+        
+       
+        return k;
+    }
+
+    //retorna el valor con menor costo
     private int min(int px, int py) {
 
         if (px < py) {
