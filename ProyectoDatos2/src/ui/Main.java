@@ -36,7 +36,7 @@ public class Main {
       grafo.dijkstra(origen);
       grafo.masCorto();
   
-      int x = grafo.caminos(origen.getNumeroVertice(),destino.getNumeroVertice());
+      int x = grafo.camino(origen.getNumeroVertice(),destino.getNumeroVertice());
       System.out.println("Camino corto :" + origen.getEtiqueta() + " ->" + x);
     
       System.out.println("Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()]);

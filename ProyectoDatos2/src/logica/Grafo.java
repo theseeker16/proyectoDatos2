@@ -54,7 +54,7 @@ public class Grafo {
 
     //Carga el nombre de las ubicaciones
     private void cargarUbicaciones() {
-       
+
         nombresUbicaciones[1] = "Lameda Island";
         nombresUbicaciones[2] = "Scunir Island";
         nombresUbicaciones[3] = "Modulig Island";
@@ -87,7 +87,7 @@ public class Grafo {
         int peso = 0;
         Graphics g;
         if (this.vertices != null) {
-            for (int i = 1; i < 25; i++) {
+            for (int i = 1; i <= 24; i++) {
                 for (int j = 1; j < this.nombresUbicaciones[i].length(); j++) {
                     //Se crea objetos vertice con el nombre de la etiqueta ya establecida 
                     Vertice vertice = new Vertice(i, this.nombresUbicaciones[i]);
@@ -99,6 +99,9 @@ public class Grafo {
         }
     }
 
+    //Se enlaza un vertice con otro por medio de arcos
+    //Tambien se pone el peso en la matriz de adyacencia
+    //Los datos son estaticos no dinamicos
     public void cargarArcos() {
 
         //Lameda Island a Scunir Island
@@ -125,6 +128,18 @@ public class Grafo {
         this.costos[2][4] = Asucesor.getPeso();
         this.vertices[2].setSucesor(Asucesor);
 
+        //Jinborei Island a Barheja Island
+        Vsucesor = this.vertices[5];
+        Asucesor = new Arco(800, Vsucesor);
+        this.costos[4][5] = Asucesor.getPeso();
+        this.vertices[4].setSucesor(Asucesor);
+
+        //Jinborei Island a Dayton Island
+        Vsucesor = this.vertices[6];
+        Asucesor = new Arco(1200, Vsucesor);
+        this.costos[4][6] = Asucesor.getPeso();
+        this.vertices[4].setSucesor(Asucesor);
+
     }
 
     public void mostrarVertices() {
@@ -132,47 +147,7 @@ public class Grafo {
             System.out.println("Numero vertice:" + vertices[i].getNumeroVertice() + " Etiqueta: " + vertices[i].getEtiqueta());
         }
     }
-    //FUncionalidades del grafo************************************************
 
-    public String imprimirArco(Vertice nodo, Arco arco) {
-        String mensaje;
-
-        mensaje = "*********************" + "                   " + "*********************" + "\n"
-                + "*    Nodo Origen    *" + "   *************   " + "*    Nodo Destino   *" + "\n"
-                + "*Numero: " + nodo.getNumeroVertice() + "          *" + "   * Peso: " + arco.getPeso() + " ->*   " + "*Numero: " + arco.getPunteroVertice().getNumeroVertice() + "          *" + "\n"
-                + "*Etiqueta: " + nodo.getEtiqueta() + "        *" + "   *************   " + "*Etiqueta: " + arco.getPunteroVertice().getEtiqueta() + "        *" + "\n"
-                + "*********************" + "                   " + "*********************" + "\n" + "\n";
-
-        return mensaje;
-    }
-
-    public String ImprimirArcosNodo(Vertice nodo) {
-        String msj = "";
-
-        if (nodo.getPredecesor() == null) {
-            msj = msj + "No hay vertices predecesores";
-        } else {
-            Arco aux;
-            msj = msj + "-Predecesores" + "\n";
-
-            for (int i = 0; i < nodo.getPredecesor().size(); i++) {
-                msj = msj + this.imprimirArco(nodo, nodo.getPredecesor().get(i));
-            }
-
-        }
-
-        if (nodo.getSucesor() == null) {
-            msj = msj + "No hay vertices sucesores";
-        } else {
-            Arco aux;
-            msj = msj + "-Sucesores" + "\n";
-            for (int i = 0; i < nodo.getSucesor().size(); i++) {
-                msj = msj + this.imprimirArco(nodo, nodo.getSucesor().get(i));
-            }
-        }
-
-        return msj;
-    }
 
     public Vertice getVertice(int numero) {
         Vertice result = null;
@@ -184,25 +159,22 @@ public class Grafo {
 
         return result;
     }
+
     
-    //quitar el void
     public void dijkstra(Vertice origen) {
 
         int[] verticesNoVisitados = new int[25];// aqui se van guardando los vertices no visitados
         int posconjunto = 1;
-
-        this.costosMinimos[origen.getNumeroVertice()] = 0;
-
+        this.costosMinimos[1] = 0;
+        this.vertices[posconjunto] = null;
         for (int i = 1; i <= 24; i++) {
             this.costosMinimos[i] = costos[origen.getNumeroVertice()][i];
         }
 
-        for (int i = 1; i <= 24-1; i++) {
+        for (int i = 1; i < 24-1; i++) {
             this.verticeVisitado = buscaMinimo();//deja en w el vertice no visitado con el menor costo en ese momento
             posconjunto++;
             verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
-            this.verticesVisitados[this.verticeVisitado] = null; //saca al vertice los no visitados
-            //this.verticesVisitados[this.verticeVisitado] = 0;
 
             for (int v = 24 - posconjunto; v <= 24; v++) {
                 this.costosMinimos[v] = min(this.costosMinimos[v], this.costosMinimos[this.verticeVisitado] + costos[this.verticeVisitado][v]);
@@ -210,17 +182,15 @@ public class Grafo {
         }
 
     }
-    
+
     //Busca el vertice con costo minimo de los no visitados
     private int buscaMinimo() {
-
         int minimo = 10000, pos = 10000;
-
-        for (int i = 1; i < 25; i++) {
+        for (int i = 1; i <= 24; i++) {
             if (this.verticesVisitados[i] != null) {
                 if (this.costosMinimos[i] < minimo) {
                     minimo = this.costosMinimos[i];
-                    pos = 1;
+                    pos = i;
                 }
             }
         }
@@ -229,23 +199,21 @@ public class Grafo {
     }
 
     public void masCorto() {
-
+        int i, j, k;
         int[][] a = new int[25][25];
 
-        for (int i = 1; i < 25; i++) {
-            for (int j = 1; j < 25; j++) {
+        for (i = 1; i <= 24; i++) {
+            for (j = 1; j <= 24; j++) {
                 a[i][j] = costos[i][j];
                 this.caminos[i][j] = 0;
             }
         }
-
-        for (int i = 1; i < 25; i++) {
+        for (i = 1; i <= 24; i++) {
             a[i][i] = 0;
         }
-
-        for (int k = 1; k < 25; k++) {
-            for (int i = 1; i < 25; i++) {
-                for (int j = 1; j < 25; j++) {
+        for (k = 1; k <= 24; k++) {
+            for (i = 1; i <= 24; i++) {
+                for (j = 1; j <= 24; j++) {
                     if ((a[i][k] + a[k][j]) < (a[i][j])) {
                         a[i][j] = a[i][k] + a[k][j];
                         this.caminos[i][j] = k;
@@ -254,31 +222,29 @@ public class Grafo {
             }
         }
     }
-   
+
     //imprime la ruta mas corta desde el vertice i hasta el j
-    public int caminos(int origen,int destino) {
-        int k;
-        
-        k = this.caminos[origen][destino];
-        if (k == 0) {
-            return 0;
+    public int camino(int origen, int destino) {
+        int k = 0;
+        for (int i = 0; i < destino; i++) {
+            k = caminos[origen][destino];
+            if (k == 0) {
+                return 0;
+            }
+            camino(origen, k);
+            camino(k, destino);
         }
-   
-             caminos(origen, k);
-        
-             caminos(destino,k );
-        
-       
+
         return k;
     }
 
     //retorna el valor con menor costo
-    private int min(int px, int py) {
+    private int min(int x, int y) {
 
-        if (px < py) {
-            return px;
+        if (x < y) {
+            return x;
         } else {
-            return py;
+            return y;
         }
     }
 }
