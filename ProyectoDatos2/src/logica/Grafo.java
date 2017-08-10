@@ -297,13 +297,11 @@ public class Grafo {
             System.out.println("VV " + verticeVisitado);
             verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
          
-            if(verticeVisitado == 10000){
-               
-            }else{
+            if(verticeVisitado != 10000){
                  this.verticesVisitados[verticeVisitado] = null;
                   for (int v = 1; v < 25; v++) {
-                //analiza si es menor por este camino(verticeVisitado) o por el que esta en este momento
-                this.costosMinimos[v] = min(this.costosMinimos[v], this.costosMinimos[this.verticeVisitado] + costos[this.verticeVisitado][v]);
+                 //analiza si es menor por este camino(verticeVisitado) o por el que esta en este momento
+                 this.costosMinimos[v] = min(this.costosMinimos[v], this.costosMinimos[this.verticeVisitado] + costos[this.verticeVisitado][v]);
             }
             }
             
@@ -313,7 +311,6 @@ public class Grafo {
     //retorna el valor con menor costo
 
     private int min(int x, int y) {
-
         if (x < y) {
             return x;
         } else {
@@ -332,7 +329,6 @@ public class Grafo {
                 }
             }
         }
-     
         return pos;
     }
 
