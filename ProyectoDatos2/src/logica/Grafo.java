@@ -36,9 +36,9 @@ public class Grafo {
         costos = new int[25][25]; //Es la matriz de adyacencia
         costosMinimos = new int[25];
 
-        this.cargarCostos();
         this.cargarUbicaciones();
         this.insertarUbicaciones();
+        this.cargarCostos();
         this.cargarArcos();
 //        this.mostrarVertices();
 
@@ -113,33 +113,155 @@ public class Grafo {
         //Lameda Island a Modulig Island
         Vsucesor = this.vertices[3];
         Asucesor = new Arco(500, Vsucesor);
-        this.costos[1][3] = Asucesor.getPeso();
         this.vertices[1].setSucesor(Asucesor);
+        this.costos[1][3] = Asucesor.getPeso();
 
         //Modulig Island a Jinborei Island
         Vsucesor = this.vertices[4];
-        Asucesor = new Arco(1000, Vsucesor);
-        this.costos[3][4] = Asucesor.getPeso();
+        Asucesor = new Arco(280, Vsucesor);
         this.vertices[3].setSucesor(Asucesor);
+        this.costos[3][4] = Asucesor.getPeso();
 
         //Scunir Island a Jinborei Island
         Vsucesor = this.vertices[4];
-        Asucesor = new Arco(700, Vsucesor);
-        this.costos[2][4] = Asucesor.getPeso();
+        Asucesor = new Arco(550, Vsucesor);
         this.vertices[2].setSucesor(Asucesor);
+        this.costos[2][4] = Asucesor.getPeso();
 
         //Jinborei Island a Barheja Island
         Vsucesor = this.vertices[5];
-        Asucesor = new Arco(800, Vsucesor);
-        this.costos[4][5] = Asucesor.getPeso();
+        Asucesor = new Arco(780, Vsucesor);
         this.vertices[4].setSucesor(Asucesor);
+        this.costos[4][5] = Asucesor.getPeso();
 
         //Jinborei Island a Dayton Island
         Vsucesor = this.vertices[6];
-        Asucesor = new Arco(1200, Vsucesor);
-        this.costos[4][6] = Asucesor.getPeso();
+        Asucesor = new Arco(240, Vsucesor);
         this.vertices[4].setSucesor(Asucesor);
-
+        this.costos[4][6] = Asucesor.getPeso();
+        
+        //Dayton Island a Serka Island
+        Vsucesor = this.vertices[10];
+        Asucesor = new Arco(400, Vsucesor);
+        this.vertices[6].setSucesor(Asucesor);
+        this.costos[6][10] = Asucesor.getPeso();
+        
+        //Serka Island a Epheria
+        Vsucesor = this.vertices[11];
+        Asucesor = new Arco(120, Vsucesor);
+        this.vertices[10].setSucesor(Asucesor);
+        this.costos[10][11] = Asucesor.getPeso();
+        
+        //Epheria a  Epheria Pass
+        Vsucesor = this.vertices[12];
+        Asucesor = new Arco(350, Vsucesor);
+        this.vertices[11].setSucesor(Asucesor);
+        this.costos[11][12] = Asucesor.getPeso();
+        
+        //Epheria Pass a Elder Bridge
+        Vsucesor = this.vertices[13];
+        Asucesor = new Arco(600, Vsucesor);
+        this.vertices[12].setSucesor(Asucesor);
+        this.costos[12][13] = Asucesor.getPeso();
+        
+        //Epheria Pass a Oldster's Bridge Post
+        Vsucesor = this.vertices[14];
+        Asucesor = new Arco(150, Vsucesor);
+        this.vertices[12].setSucesor(Asucesor);
+        this.costos[12][14] = Asucesor.getPeso();
+       
+        
+        //Barheja Island a Oben Island
+        Vsucesor = this.vertices[7];
+        Asucesor = new Arco(200, Vsucesor);
+        this.vertices[5].setSucesor(Asucesor);
+        this.costos[5][7] = Asucesor.getPeso();
+        
+        //Oben Island a Aberdeen Island
+        Vsucesor = this.vertices[8];
+        Asucesor = new Arco(300, Vsucesor);
+        this.vertices[7].setSucesor(Asucesor);
+        this.costos[7][8] = Asucesor.getPeso();
+        
+         //Oben Island a Landise Island
+        Vsucesor = this.vertices[9];
+        Asucesor = new Arco(450, Vsucesor);
+        this.vertices[8].setSucesor(Asucesor);
+        this.costos[8][9] = Asucesor.getPeso();
+         
+        //Oben Island a Oldster's Bridge Post
+        Vsucesor = this.vertices[14];
+        Asucesor = new Arco(1000, Vsucesor);
+        this.vertices[8].setSucesor(Asucesor);
+        this.costos[8][14] = Asucesor.getPeso();
+        
+        //Oldster's Bridge Post a Troll Defense Camp
+        Vsucesor = this.vertices[15];
+        Asucesor = new Arco(900, Vsucesor);
+        this.vertices[14].setSucesor(Asucesor);
+        this.costos[14][15] = Asucesor.getPeso();
+        
+        // Troll Defense Camp a Forsaken Land
+        Vsucesor = this.vertices[17];
+        Asucesor = new Arco(740, Vsucesor);
+        this.vertices[15].setSucesor(Asucesor);
+        this.costos[15][17] = Asucesor.getPeso();
+        
+        // Troll Defense Camp a Isolated Sentry Post
+        Vsucesor = this.vertices[16];
+        Asucesor = new Arco(400, Vsucesor);
+        this.vertices[15].setSucesor(Asucesor);
+        this.costos[15][16] = Asucesor.getPeso();
+        
+        //  Forsaken Land a Cohen Farm
+        Vsucesor = this.vertices[18];
+        Asucesor = new Arco(502, Vsucesor);
+        this.vertices[17].setSucesor(Asucesor);
+        this.costos[17][18] = Asucesor.getPeso();
+        
+        //Isolated Sentry Post a Northern Kaia Mountain Summit
+        Vsucesor = this.vertices[24];
+        Asucesor = new Arco(650, Vsucesor);
+        this.vertices[16].setSucesor(Asucesor);
+        this.costos[16][24] = Asucesor.getPeso();
+        
+        //Isolated Sentry Post a Tainted Farm
+        Vsucesor = this.vertices[19];
+        Asucesor = new Arco(1000, Vsucesor);
+        this.vertices[16].setSucesor(Asucesor);
+        this.costos[16][19] = Asucesor.getPeso();
+        
+        //Northern Kaia Mountain Summit a Catfishman Camp
+        Vsucesor = this.vertices[23];
+        Asucesor = new Arco(360, Vsucesor);
+        this.vertices[24].setSucesor(Asucesor);
+        this.costos[24][23] = Asucesor.getPeso();
+        
+        //Tainted Farm a Calpheon
+        Vsucesor = this.vertices[20];
+        Asucesor = new Arco(990, Vsucesor);
+        this.vertices[19].setSucesor(Asucesor);
+        this.costos[19][20] = Asucesor.getPeso();
+        
+        //Calpheon a Garvino Farm
+        Vsucesor = this.vertices[21];
+        Asucesor = new Arco(890, Vsucesor);
+        this.vertices[20].setSucesor(Asucesor);
+        this.costos[20][21] = Asucesor.getPeso();
+        
+        //Catfishman Camp a Calpheon Castle Ruins
+        Vsucesor = this.vertices[22];
+        Asucesor = new Arco(760, Vsucesor);
+        this.vertices[23].setSucesor(Asucesor);
+        this.costos[23][22] = Asucesor.getPeso();
+        
+        //Calpheon Castle Ruins a Garvino Farm
+        Vsucesor = this.vertices[21];
+        Asucesor = new Arco(100, Vsucesor);
+        this.vertices[22].setSucesor(Asucesor);
+        this.costos[22][21] = Asucesor.getPeso();
+        
+        
     }
 
     public void mostrarVertices() {
@@ -160,31 +282,49 @@ public class Grafo {
     }
 
     public void dijkstra(Vertice origen) {
-
-        int[] verticesNoVisitados = new int[25];// aqui se van guardando los vertices no visitados
         int posconjunto = 1;
+        int[] verticesNoVisitados = new int[25];// aqui se van guardando los vertices no visitados
         this.costosMinimos[1] = 0;
-        this.vertices[posconjunto] = null;
+        //this.vertices[posconjunto] = null;
         for (int i = 1; i <= 24; i++) {
             this.costosMinimos[i] = costos[origen.getNumeroVertice()][i];
         }
 
-        for (int i = 1; i < 24 - 1; i++) {
-            this.verticeVisitado = buscaMinimo(origen.getNumeroVertice());//deja en w el vertice no visitado con el menor costo en ese momento
-            posconjunto++;
-            verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
+        for (int i = 1; i < 24; i++) {
 
-            for (int v = 24 - posconjunto; v <= 24; v++) {
+            posconjunto++;
+            this.verticeVisitado = buscaMinimo();//deja en w el vertice no visitado con el menor costo en ese momento
+            System.out.println("VV " + verticeVisitado);
+            verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
+         
+            if(verticeVisitado == 10000){
+               
+            }else{
+                 this.verticesVisitados[verticeVisitado] = null;
+                  for (int v = 1; v < 25; v++) {
+                //analiza si es menor por este camino(verticeVisitado) o por el que esta en este momento
                 this.costosMinimos[v] = min(this.costosMinimos[v], this.costosMinimos[this.verticeVisitado] + costos[this.verticeVisitado][v]);
             }
+            }
+            
         }
 
     }
+    //retorna el valor con menor costo
+
+    private int min(int x, int y) {
+
+        if (x < y) {
+            return x;
+        } else {
+            return y;
+        }
+    }
 
     //Busca el vertice con costo minimo de los no visitados
-    private int buscaMinimo(int origen) {
+    private int buscaMinimo() {
         int minimo = 10000, pos = 10000;
-        for (int i = origen; i <= 24; i++) {
+        for (int i = 1; i < 25; i++) {
             if (this.verticesVisitados[i] != null) {
                 if (this.costosMinimos[i] < minimo) {
                     minimo = this.costosMinimos[i];
@@ -192,7 +332,7 @@ public class Grafo {
                 }
             }
         }
-
+     
         return pos;
     }
 
@@ -224,25 +364,14 @@ public class Grafo {
     //imprime la ruta mas corta desde el vertice i hasta el j
     public int camino(int origen, int destino) {
         int k = 0;
-        for (int i = 0; i < destino; i++) {
-            k = caminos[origen][destino];
-            if (k == 0) {
-                return 0;
-            }
-            camino(origen, k);
-            camino(k, destino);
+
+        k = caminos[origen][destino];
+        if (k == 0) {
+            return 0;
         }
+        camino(origen, k);
+        camino(k, destino);
 
         return k;
-    }
-
-    //retorna el valor con menor costo
-    private int min(int x, int y) {
-
-        if (x < y) {
-            return x;
-        } else {
-            return y;
-        }
     }
 }

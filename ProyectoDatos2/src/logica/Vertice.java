@@ -23,6 +23,9 @@ public class Vertice {
         predecesor=null;
         sucesor=null;
     }
+    public Vertice(){
+        
+    }
     public int getNumeroVertice() {
         return numeroVertice;
     }
