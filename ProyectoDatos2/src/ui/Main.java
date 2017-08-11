@@ -17,64 +17,52 @@ import logica.Vertice;
  * @author jgm16
  */
 public class Main {
-  public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     /**
      * @param args the command line arguments
      */
-  Gestor gestor = new Gestor();
+    static Gestor gestor = new Gestor();
+
     public static void main(String[] args) throws IOException {
-      Grafo grafo = new Grafo();
-      
-      System.out.println("Ingrese el origen");
-      int posicion = Integer.parseInt(br.readLine());
-      Vertice origen = grafo.getVertice(posicion);
-      
-      System.out.println("Ingrese el destino");
-      posicion = Integer.parseInt(br.readLine());
-      Vertice destino = grafo.getVertice(posicion);
-      
-      grafo.dijkstra(origen);
-      grafo.masCorto();
-      
-      int x = grafo.camino(origen.getNumeroVertice(),destino.getNumeroVertice());
-      System.out.println("Camino corto :" + origen.getEtiqueta() + " ->" + x);
-    
-      System.out.println("Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()] + " metros");
-          
-     
-     
-   
-      
-    
-      
-//      grafo.caminos(origen.getNumeroVertice(), destino.getNumeroVertice());
-      
-//        int opcion = 0;
-//        do {
-//            System.out.println("1.Buscar una determinada ubicación");
-//            System.out.println("2.Mostrar una determinada ubicación,");
-//            System.out.println("3.Mostrar sus ubicaciones adyacentes");
-//            System.out.println("4.Mostrar el camino mínimo");
-//            System.out.println("5.Mostrar grafo");
-//            System.out.println("6.Salir");
-//            System.out.println("Digite una opcion");
-//            opcion = Integer.parseInt(br.readLine());
-//           
-//     
-//        } while (opcion != 4 );
-        
-       
+
+        int opcion = 0;
+        do {
+            System.out.println("1.Buscar una determinada ubicación por hash");
+            System.out.println("2.Mostrar una determinada ubicación,en la matriz de adyacencia");
+            System.out.println("3.Mostrar matriz de adyacencia completa");
+            System.out.println("4.Mostrar el camino minimo");
+            System.out.println("5.Mostrar grafo");
+            System.out.println("6.Salir");
+            System.out.println("Digite una opcion");
+            opcion = Integer.parseInt(br.readLine());
+            menu(opcion);
+        } while (opcion != 6);
+
     }
-    
-    public void menu(int opcion){
-        switch(opcion){
+
+    public static void menu(int opcion) throws IOException {
+        int origen;
+        switch (opcion) {
             case 1:
                 break;
             case 2:
+                System.out.println("Ingrese el origen");
+                origen = Integer.parseInt(br.readLine());
+
+                gestor.imprimirMatrizAdyacenciaBusqueda(origen);
                 break;
             case 3:
+                gestor.imprimirMatrizAdyacenciaCompleta();
                 break;
             case 4:
+                System.out.println("Ingrese el origen");
+                origen = Integer.parseInt(br.readLine());
+
+                System.out.println("Ingrese el destino");
+                int destino = Integer.parseInt(br.readLine());
+
+                gestor.caminoCorto(origen, destino);
                 break;
             case 5:
                 break;
@@ -83,5 +71,5 @@ public class Main {
             default:
         }
     }
-    
+
 }
