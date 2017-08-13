@@ -26,6 +26,7 @@ public class Grafo {
     private Vertice[] verticesVisitados; //aqui van quedando los vertices visitados
     private int verticeVisitado; //contiene el vertice visitado actualmente
     private String[] nombresUbicaciones;//Contiene el nombre de todas las ubicaciones del mapa
+    public ArrayList<Integer> p = new ArrayList(); //obtiene los caminos desde el origen hasta el destino para enlistarlos.
 
     public Grafo() {
 
@@ -40,7 +41,6 @@ public class Grafo {
         this.insertarUbicaciones();
         this.cargarCostos();
         this.cargarArcos();
-//        this.mostrarVertices();
 
     }
 
@@ -212,62 +212,57 @@ public class Grafo {
         this.vertices[15].setSucesor(Asucesor);
         this.costos[15][16] = Asucesor.getPeso();
 
-        //  Forsaken Land a Cohen Farm
+        //Isolated Sentry Post a Cohen Farm
+        Vsucesor = this.vertices[18];
+        Asucesor = new Arco(400, Vsucesor);
+        this.vertices[16].setSucesor(Asucesor);
+        this.costos[16][18] = Asucesor.getPeso();
+
+        // Forsaken Land a Cohen Farm
         Vsucesor = this.vertices[18];
         Asucesor = new Arco(502, Vsucesor);
         this.vertices[17].setSucesor(Asucesor);
         this.costos[17][18] = Asucesor.getPeso();
 
-        //Isolated Sentry Post a Northern Kaia Mountain Summit
-        Vsucesor = this.vertices[24];
-        Asucesor = new Arco(650, Vsucesor);
-        this.vertices[16].setSucesor(Asucesor);
-        this.costos[16][24] = Asucesor.getPeso();
-
-        //Isolated Sentry Post a Tainted Farm
+        //Cohen Farm Post a Tainted Farm
         Vsucesor = this.vertices[19];
         Asucesor = new Arco(1000, Vsucesor);
-        this.vertices[16].setSucesor(Asucesor);
-        this.costos[16][19] = Asucesor.getPeso();
+        this.vertices[18].setSucesor(Asucesor);
+        this.costos[18][19] = Asucesor.getPeso();
 
-        //Northern Kaia Mountain Summit a Catfishman Camp
-        Vsucesor = this.vertices[23];
-        Asucesor = new Arco(360, Vsucesor);
-        this.vertices[24].setSucesor(Asucesor);
-        this.costos[24][23] = Asucesor.getPeso();
-
-        //Tainted Farm a Calpheon
+        // Tainted Farm a  Calpheon
         Vsucesor = this.vertices[20];
-        Asucesor = new Arco(990, Vsucesor);
+        Asucesor = new Arco(600, Vsucesor);
         this.vertices[19].setSucesor(Asucesor);
         this.costos[19][20] = Asucesor.getPeso();
 
-        //Calpheon a Garvino Farm
+        // Tainted Farm a Garvino Farm
         Vsucesor = this.vertices[21];
-        Asucesor = new Arco(890, Vsucesor);
-        this.vertices[20].setSucesor(Asucesor);
-        this.costos[20][21] = Asucesor.getPeso();
+        Asucesor = new Arco(200, Vsucesor);
+        this.vertices[19].setSucesor(Asucesor);
+        this.costos[19][21] = Asucesor.getPeso();
 
-        //Catfishman Camp a Calpheon Castle Ruins
+        //Calpheon a Calpheon Castle Ruins
         Vsucesor = this.vertices[22];
-        Asucesor = new Arco(760, Vsucesor);
-        this.vertices[23].setSucesor(Asucesor);
-        this.costos[23][22] = Asucesor.getPeso();
+        Asucesor = new Arco(750, Vsucesor);
+        this.vertices[20].setSucesor(Asucesor);
+        this.costos[20][22] = Asucesor.getPeso();
 
-        //Calpheon Castle Ruins a Garvino Farm
-        Vsucesor = this.vertices[21];
-        Asucesor = new Arco(100, Vsucesor);
+        //Calpheon Castle Ruins a Northern Kaia Mountain Summit
+        Vsucesor = this.vertices[24];
+        Asucesor = new Arco(900, Vsucesor);
         this.vertices[22].setSucesor(Asucesor);
-        this.costos[22][21] = Asucesor.getPeso();
+        this.costos[22][24] = Asucesor.getPeso();
+
+        //Catfishman Camp a Northern Kaia Mountain Summit
+        Vsucesor = this.vertices[24];
+        Asucesor = new Arco(360, Vsucesor);
+        this.vertices[23].setSucesor(Asucesor);
+        this.costos[23][24] = Asucesor.getPeso();
 
     }
 
-    public void mostrarVertices() {
-        for (int i = 1; i < this.vertices.length; i++) {
-            System.out.println("Numero vertice:" + vertices[i].getNumeroVertice() + " Etiqueta: " + vertices[i].getEtiqueta());
-        }
-    }
-
+    //Obtiene el vertice se busca por medio del numero de vertice
     public Vertice getVertice(int numero) {
         Vertice result = null;
         for (int i = 1; i < this.vertices.length; i++) {
@@ -294,6 +289,7 @@ public class Grafo {
             this.verticeVisitado = buscaMinimo();//deja en w el vertice no visitado con el menor costo en ese momento
             verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
 
+            //Se valida para al tratar de sacar de los visitados no trate de acceder a una posicion que no exista
             if (verticeVisitado != 10000) {
                 this.verticesVisitados[verticeVisitado] = null;
                 for (int v = 1; v < 25; v++) {
@@ -301,12 +297,10 @@ public class Grafo {
                     this.costosMinimos[v] = min(this.costosMinimos[v], this.costosMinimos[this.verticeVisitado] + costos[this.verticeVisitado][v]);
                 }
             }
-
         }
-
     }
-    //retorna el valor con menor costo
 
+    //retorna el valor con menor costo
     private int min(int x, int y) {
         if (x < y) {
             return x;
@@ -355,52 +349,84 @@ public class Grafo {
     }
 
     //imprime la ruta mas corta desde el vertice i hasta el j
-    public int camino(int origen, int destino) {
+    public void camino(int origen, int destino) {
+
         int k = 0;
 
         k = caminos[origen][destino];
         if (k == 0) {
-            return 0;
+            return;
         }
         camino(origen, k);
         camino(k, destino);
+        p.add(k);
 
-        return k;
     }
 
+    //Imprime la matriz de adyacencia pero solo del origen que se pidio
     public void imprimirMatrizAdyacencia(int origen) {
-
-        for (int i = 0; i < this.costos.length; i++) {
-
-            for (int j = 0; j < this.costos.length; j++) {
+        String matriz = "";
+        for (int i = 1; i < this.costos.length; i++) {
+            for (int j = 1; j < this.costos[i].length; j++) {
                 if (i == origen) {
                     if (this.costos[i][j] != 10000) {
                         System.out.print("\033[35m" + this.costos[i][j] + "\t");
+                        matriz += "\n" + "[" + i + "," + j + "]";
                     } else {
                         System.out.print("\033[30m" + this.costos[i][j] + "\t");
                     }
                 }
-
             }
-
         }
+        System.out.println("\n" + "--------------------------------");
+        System.out.print("Posiciones dentro de la matriz");
+        System.out.println(matriz);
         System.out.println();
     }
-
+    
+    //Imprime la matriz completa de adyacencia
     public void imprimirMatrizAdyacenciaCompleta() {
 
-        for (int i = 0; i < this.costos.length; i++) {
-
-            for (int j = 0; j < this.costos.length; j++) {
-                if (this.costos[i][j] != 10000) {
-                    System.out.print("\033[35m" + this.costos[i][j] + "\t");
-                } else {
-                    System.out.print("\033[30m" + this.costos[i][j] + "\t");
+        String fila = "";
+        for (int i = 1; i < this.costos.length; i++) {
+            if (i == 1) {
+                for (int u = 1; u < 25; u++) {
+                    if (u < 10) {
+                        fila += u + ".......";
+                    }
+                    if ((u >= 10) && (u < 25)) {
+                        fila += u + "......";
+                    }
                 }
+                System.out.println("\t" + fila + "\n" + "\t");
 
             }
-            System.out.println();
+            for (int j = 1; j < 25; j++) {
+                if (j == 1) {
+                    if (i < 10) {
+                        System.out.print(i + "   " + "|");
+                    }
+                    if (i >= 10) {
+                        System.out.print(i + "  " + "|");
+                    }
+                }
+                if (costos[i][j] != 10000) {
+                    //color magenta
+                    System.out.print("\t" + "\033[35m" + this.costos[i][j]);
+                } else {
+                    //color negro
+                    System.out.print("\t" + "\033[30m" + this.costos[i][j]);
+                }
+                if (j == 25 - 1) {
+                    System.out.println("\n" + "    " + "|");
+                }
+            }
         }
+    }
+
+    //Obtiene los vertices
+    public Vertice[] getVertices() {
+        return vertices;
     }
 
 }

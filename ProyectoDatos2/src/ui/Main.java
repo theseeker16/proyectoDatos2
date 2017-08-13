@@ -25,14 +25,14 @@ public class Main {
     static Gestor gestor = new Gestor();
 
     public static void main(String[] args) throws IOException {
-
+       
         int opcion = 0;
         do {
-            System.out.println("1.Buscar una determinada ubicación por hash");
-            System.out.println("2.Mostrar una determinada ubicación,en la matriz de adyacencia");
-            System.out.println("3.Mostrar matriz de adyacencia completa");
-            System.out.println("4.Mostrar el camino minimo");
-            System.out.println("5.Mostrar grafo");
+            System.out.println("1.Mostrar nombres de ubicaciones del mapa");
+            System.out.println("2.Buscar una determinada ubicación por hash");
+            System.out.println("3.Mostrar una determinada ubicación,en la matriz de adyacencia");
+            System.out.println("4.Mostrar matriz de adyacencia completa");
+            System.out.println("5.Mostrar el camino minimo");
             System.out.println("6.Salir");
             System.out.println("Digite una opcion");
             opcion = Integer.parseInt(br.readLine());
@@ -45,17 +45,34 @@ public class Main {
         int origen;
         switch (opcion) {
             case 1:
+                for (int i = 1; i < gestor.obtenerVertices().length; i++) {
+
+                    System.out.println("Numero de vertice:" + gestor.obtenerVertices()[i].getNumeroVertice() + " Etiqueta: " + gestor.obtenerVertices()[i].getEtiqueta() + "\t");
+                    System.out.println("-------------------------------------------------------");
+                }
+
                 break;
             case 2:
+                int indice;
+                int a;
+                System.out.println("Inserte un el indice del vertice a  buscar");
+                indice = Integer.parseInt(br.readLine());
+
+                System.out.println("Inserte la etiqueta del vertice");
+                a = Integer.parseInt(br.readLine());
+
+                System.out.println(gestor.obtenerVerticeEnHash(indice, a));
+                break;
+            case 3:
                 System.out.println("Ingrese el origen");
                 origen = Integer.parseInt(br.readLine());
 
                 gestor.imprimirMatrizAdyacenciaBusqueda(origen);
                 break;
-            case 3:
+            case 4:
                 gestor.imprimirMatrizAdyacenciaCompleta();
                 break;
-            case 4:
+            case 5:
                 System.out.println("Ingrese el origen");
                 origen = Integer.parseInt(br.readLine());
 
@@ -63,8 +80,6 @@ public class Main {
                 int destino = Integer.parseInt(br.readLine());
 
                 gestor.caminoCorto(origen, destino);
-                break;
-            case 5:
                 break;
             case 6:
                 break;

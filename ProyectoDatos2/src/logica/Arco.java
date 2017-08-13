@@ -20,6 +20,9 @@ public class Arco {
         siguiente = null;
         
     }
+    public Arco(){
+        
+    }
     public int getPeso() {
         return peso;
     }
