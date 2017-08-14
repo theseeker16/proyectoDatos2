@@ -23,7 +23,7 @@ public class Gestor {
 
     public Gestor() {
         hash = new Hashing();
-        grafo  = new Grafo();
+        grafo = new Grafo();
         this.cargarValoresEnHash();
     }
 
@@ -36,12 +36,16 @@ public class Gestor {
         grafo.dijkstra(origen);
         grafo.masCorto();
         grafo.camino(porigen, pdestino);
-        
+
         Vertice caminoCorto;//variable tipo Vertice se le asigna el valor del vertice guardado en el arreglo P
         String texto;
-       
+
+        if (grafo.costosMinimos[destino.getNumeroVertice()] == 10000) {
+            texto = "No se pudo obtener la distancia ya que el origen y el destino estan en rutas distintas";
+        }
+        else  {
             texto = "Camino corto:" + "\n" + origen.getNumeroVertice() + "." + origen.getEtiqueta() + "\n";
-            
+
             //Se recorre la lista de vertices para obtener el camino completo desde el origen hasta el destino
             for (int i = 0; i < grafo.p.size(); i++) {
                 caminoCorto = grafo.getVertice(grafo.p.get(i));
@@ -52,14 +56,17 @@ public class Gestor {
             texto += "Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()] + " metros";
 
             grafo.p.clear();//Limpia todos los valores del arreglo P, para que no se acumulen ubicaciones siguientes.
-           
+
+        }
+
         return texto;
     }
-   
+
     //Imprime la matriz de adyacencia completa
     public void imprimirMatrizAdyacenciaCompleta() {
         grafo.imprimirMatrizAdyacenciaCompleta();
     }
+
     //Imprime solo la matriz del origen que se solicita
     public void imprimirMatrizAdyacenciaBusqueda(int origen) {
         grafo.imprimirMatrizAdyacencia(origen);
