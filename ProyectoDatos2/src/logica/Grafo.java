@@ -44,7 +44,7 @@ public class Grafo {
 
     }
 
-    private void cargarCostos() {
+    public void cargarCostos() {
         for (int i = 1; i <= 24; i++) {
             for (int j = 1; j <= 24; j++) {
                 costos[i][j] = 10000;
@@ -102,7 +102,7 @@ public class Grafo {
     //Se enlaza un vertice con otro por medio de arcos
     //Tambien se pone el peso en la matriz de adyacencia
     //Los datos son estaticos no dinamicos
-    public void cargarArcos() {
+    private void cargarArcos() {
 
         //Lameda Island a Scunir Island
         Vertice Vsucesor = this.vertices[2];
@@ -281,6 +281,7 @@ public class Grafo {
     }
 
     public void dijkstra(Vertice origen) {
+        
         int posconjunto = 1;
         int[] verticesNoVisitados = new int[25];// aqui se van guardando los vertices no visitados
         this.costosMinimos[1] = 0;
@@ -296,6 +297,7 @@ public class Grafo {
             verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
 
             //Se valida para al tratar de sacar de los visitados no trate de acceder a una posicion que no exista
+            System.out.println(verticeVisitado);
             if (verticeVisitado != 10000) {
                 this.verticesVisitados[verticeVisitado] = null;
                 for (int v = 1; v < 25; v++) {
@@ -304,6 +306,7 @@ public class Grafo {
                 }
             }
         }
+        this.insertarUbicaciones();
     }
 
     //retorna el valor con menor costo
@@ -360,13 +363,13 @@ public class Grafo {
         int k = 0;
 
         k = caminos[origen][destino];
+        
         if (k == 0) {
             return;
         }
         camino(origen, k);
         camino(k, destino);
         p.add(k);
-
     }
 
     //Imprime la matriz de adyacencia pero solo del origen que se pidio

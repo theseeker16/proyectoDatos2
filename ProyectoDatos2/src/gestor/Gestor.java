@@ -19,14 +19,14 @@ import static ui.Main.br;
 public class Gestor {
 
     Hashing hash;
-    Grafo grafo;
+    Grafo grafo  = new Grafo();;
 
     public Gestor() {
         hash = new Hashing();
-        grafo = new Grafo();
+        
         this.cargarValoresEnHash();
     }
-     
+
     public String caminoCorto(int porigen, int pdestino) {
 
         Vertice origen = grafo.getVertice(porigen);
@@ -37,17 +37,19 @@ public class Gestor {
         grafo.camino(porigen, pdestino);
         Vertice caminoCorto;
         String texto;
+       
+            texto = "Camino corto:" + "\n" + origen.getNumeroVertice() + "." + origen.getEtiqueta() + "\n";
+            for (int i = 0; i < grafo.p.size(); i++) {
+                caminoCorto = grafo.getVertice(grafo.p.get(i));
+                texto += caminoCorto.getNumeroVertice() + "." + caminoCorto.getEtiqueta() + "\n";
+            }
 
-        texto = "Camino corto:" + "\n" + origen.getNumeroVertice() + "." + origen.getEtiqueta() + "\n";
-        for (int i = 0; i < grafo.p.size(); i++) {
-            caminoCorto = grafo.getVertice(grafo.p.get(i));
-            texto += caminoCorto.getNumeroVertice() + "." + caminoCorto.getEtiqueta() + "\n";
-        }
+            texto += destino.getNumeroVertice() + "." + destino.getEtiqueta() + "\n";
+            texto += "Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()] + " metros";
 
-       texto += destino.getNumeroVertice() + "." + destino.getEtiqueta() + "\n";
-       texto += "Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()] + " metros";
-      
-       return texto;
+            grafo.p.clear();
+           
+        return texto;
     }
 
     public void imprimirMatrizAdyacenciaCompleta() {
@@ -62,9 +64,9 @@ public class Gestor {
         String contenido;
         HashNode v = hash.getNumero(n);
         if (v != null) {
-       
+
             contenido = " El numero de vertice:" + hash.getNumero(n).getVertice().getNumeroVertice() + ",Etiqueta:" + hash.getNumero(n).getVertice().getEtiqueta() + ",Posicion en el hash:" + v.getPosicion();
-           
+
         } else {
             contenido = "No existe ningun registro que corresponda";
         }
@@ -83,7 +85,8 @@ public class Gestor {
         }
 
     }
-    public Vertice[] obtenerVertices(){
+
+    public Vertice[] obtenerVertices() {
         return grafo.getVertices();
     }
 
