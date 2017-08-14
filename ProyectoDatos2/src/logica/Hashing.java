@@ -24,8 +24,11 @@ public class Hashing {
         }
     }
 
+    //Agrega el valor a la tabla hash
     public void agregarValor(int indice, HashNode ptr) {
 
+        //Se valida que si el indice esta null puede guardarse el valor ahi
+        //Pero si no se obtiene la siguiente posicion para guardarlo, al final queda como una lista enlazada
         String contenido = "";
         if (tablaHash.get(indice) == null) {
             tablaHash.add(indice, ptr);
@@ -37,13 +40,14 @@ public class Hashing {
                 tablaHash.add(indice, aux);
             }
             aux.setSig(ptr);
-
         }
-
     }
 
+    //Obtiene el numero dentro de la tabla hash
+    //@param num: numero del vertice a obtener
     public HashNode getNumero(long num) {
         HashNode aux = null;
+        //Busca dentro de la tablaHash el indice del vertice que se desea obtener
         for (int i = 0; i < this.tablaHash.size(); i++) {
             if (this.tablaHash.get(i) != null) {
                 if (this.tablaHash.get(i).getVertice().getNumeroVertice() == num) {

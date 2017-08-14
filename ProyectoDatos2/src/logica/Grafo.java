@@ -85,7 +85,7 @@ public class Grafo {
     //insertar el nombre de las ubicaciones dentro del arreglo de vertices
     private void insertarUbicaciones() {
         int peso = 0;
-        Graphics g;
+  
         if (this.vertices != null) {
             for (int i = 1; i <= 24; i++) {
                 for (int j = 1; j < this.nombresUbicaciones[i].length(); j++) {
@@ -297,8 +297,8 @@ public class Grafo {
             verticesNoVisitados[posconjunto] = this.verticeVisitado;//inserta al vertice en los visitados
 
             //Se valida para al tratar de sacar de los visitados no trate de acceder a una posicion que no exista
-            System.out.println(verticeVisitado);
             if (verticeVisitado != 10000) {
+                //Saca los vertices que se van visitando
                 this.verticesVisitados[verticeVisitado] = null;
                 for (int v = 1; v < 25; v++) {
                     //analiza si es menor por este camino(verticeVisitado) o por el que esta en este momento
@@ -332,6 +332,7 @@ public class Grafo {
         return pos;
     }
 
+    //Obtiene los caminos cortos del grafo
     public void masCorto() {
         int i, j, k;
         int[][] a = new int[25][25];
@@ -369,19 +370,20 @@ public class Grafo {
         }
         camino(origen, k);
         camino(k, destino);
-        p.add(k);
+        p.add(k); //Va guardando las posiciones de las ubicaciones para poder ser mostrada la secuencia del camino
     }
 
     //Imprime la matriz de adyacencia pero solo del origen que se pidio
     public void imprimirMatrizAdyacencia(int origen) {
-        String fila = "";
-        String matriz = "";
+        String posiciones = "";
         for (int i = 1; i < 25; i++) {
             for (int j = 1; j < 25; j++) {
+                //Valida que solo salga la fila y columna del origen que se esta enviando
                 if (i == origen) {
                     if (this.costos[i][j] != 10000) {
+                        //Color magenta
                         System.out.print("\033[35m" + this.costos[i][j] + "\t");
-                        matriz += "\n" + "[" + i + "," + j + "]";
+                        posiciones += "\n" + "[" + i + "," + j + "]";//Obtiene las posiciones donde sea diferente a 10000,para poder mostrarlas
                     } else {
                         System.out.print("\033[30m" + this.costos[i][j] + "\t");
                     }
@@ -390,7 +392,7 @@ public class Grafo {
         }
         System.out.println("\n" + "--------------------------------");
         System.out.print("Posiciones dentro de la matriz");
-        System.out.println(matriz);
+        System.out.println(posiciones); 
         System.out.println();
 
     }
@@ -398,9 +400,10 @@ public class Grafo {
     //Imprime la matriz completa de adyacencia
     public void imprimirMatrizAdyacenciaCompleta() {
 
-        String fila = "";
+        String fila = ""; //Obtiene valores de 1 a 24 para ser mostrados 
         for (int i = 1; i < this.costos.length; i++) {
             if (i == 1) {
+                //La cantidad de puntos varia segun el tamaño de la lista
                 for (int u = 1; u < 25; u++) {
                     if (u < 10) {
                         fila += u + ".......";

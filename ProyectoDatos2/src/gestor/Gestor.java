@@ -19,14 +19,15 @@ import static ui.Main.br;
 public class Gestor {
 
     Hashing hash;
-    Grafo grafo  = new Grafo();;
+    Grafo grafo;
 
     public Gestor() {
         hash = new Hashing();
-        
+        grafo  = new Grafo();
         this.cargarValoresEnHash();
     }
 
+    //busca el camino corto desde un origen hasta un destino
     public String caminoCorto(int porigen, int pdestino) {
 
         Vertice origen = grafo.getVertice(porigen);
@@ -35,10 +36,13 @@ public class Gestor {
         grafo.dijkstra(origen);
         grafo.masCorto();
         grafo.camino(porigen, pdestino);
-        Vertice caminoCorto;
+        
+        Vertice caminoCorto;//variable tipo Vertice se le asigna el valor del vertice guardado en el arreglo P
         String texto;
        
             texto = "Camino corto:" + "\n" + origen.getNumeroVertice() + "." + origen.getEtiqueta() + "\n";
+            
+            //Se recorre la lista de vertices para obtener el camino completo desde el origen hasta el destino
             for (int i = 0; i < grafo.p.size(); i++) {
                 caminoCorto = grafo.getVertice(grafo.p.get(i));
                 texto += caminoCorto.getNumeroVertice() + "." + caminoCorto.getEtiqueta() + "\n";
@@ -47,19 +51,22 @@ public class Gestor {
             texto += destino.getNumeroVertice() + "." + destino.getEtiqueta() + "\n";
             texto += "Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()] + " metros";
 
-            grafo.p.clear();
+            grafo.p.clear();//Limpia todos los valores del arreglo P, para que no se acumulen ubicaciones siguientes.
            
         return texto;
     }
-
+   
+    //Imprime la matriz de adyacencia completa
     public void imprimirMatrizAdyacenciaCompleta() {
         grafo.imprimirMatrizAdyacenciaCompleta();
     }
-
+    //Imprime solo la matriz del origen que se solicita
     public void imprimirMatrizAdyacenciaBusqueda(int origen) {
         grafo.imprimirMatrizAdyacencia(origen);
     }
 
+    //Busca el vertice dentro de la tabla hash
+    //recibe el numero de vertice para ser encontrado.
     public String obtenerVerticeEnHash(long n) {
         String contenido;
         HashNode v = hash.getNumero(n);
@@ -73,10 +80,10 @@ public class Gestor {
         return contenido;
     }
 
+    //Carga los vertices en el hash.
     private void cargarValoresEnHash() {
 
         for (int i = 1; i <= 24; i++) {
-
             Vertice vertice = new Vertice();
             vertice.setEtiqueta(grafo.getVertices()[i].getEtiqueta());
             vertice.setNumeroVertice(grafo.getVertices()[i].getNumeroVertice());
@@ -86,6 +93,7 @@ public class Gestor {
 
     }
 
+    //Obtiene el arreglo de vertices
     public Vertice[] obtenerVertices() {
         return grafo.getVertices();
     }
