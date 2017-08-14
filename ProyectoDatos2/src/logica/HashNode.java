@@ -13,6 +13,7 @@ public class HashNode {
     
     Vertice vertice;
     HashNode sig;
+    int posicion;
     
     public HashNode(Vertice vertice) {
         this.setVertice(vertice);
@@ -33,4 +34,9 @@ public class HashNode {
     public HashNode getSig() {
         return sig;
     }
+
+    public int getPosicion() {
+        return posicion;
+    }
+    
 }

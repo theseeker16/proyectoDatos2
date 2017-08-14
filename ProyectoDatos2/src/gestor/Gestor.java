@@ -27,10 +27,9 @@ public class Gestor {
         this.cargarValoresEnHash();
     }
      
-    public void caminoCorto(int porigen, int pdestino) {
+    public String caminoCorto(int porigen, int pdestino) {
 
         Vertice origen = grafo.getVertice(porigen);
-
         Vertice destino = grafo.getVertice(pdestino);
 
         grafo.dijkstra(origen);
@@ -39,18 +38,16 @@ public class Gestor {
         Vertice caminoCorto;
         String texto;
 
-        System.out.println("------------------------------------------------------------");
-
         texto = "Camino corto:" + "\n" + origen.getNumeroVertice() + "." + origen.getEtiqueta() + "\n";
         for (int i = 0; i < grafo.p.size(); i++) {
             caminoCorto = grafo.getVertice(grafo.p.get(i));
-            texto = texto + caminoCorto.getNumeroVertice() + "." + caminoCorto.getEtiqueta() + "\n";
+            texto += caminoCorto.getNumeroVertice() + "." + caminoCorto.getEtiqueta() + "\n";
         }
 
-        System.out.println(texto + destino.getNumeroVertice() + "." + destino.getEtiqueta());
-        System.out.println("Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()] + " metros");
-        System.out.println("------------------------------------------------------------" + "\n");
-
+       texto += destino.getNumeroVertice() + "." + destino.getEtiqueta() + "\n";
+       texto += "Distancia :" + grafo.costosMinimos[destino.getNumeroVertice()] + " metros";
+      
+       return texto;
     }
 
     public void imprimirMatrizAdyacenciaCompleta() {
@@ -61,11 +58,13 @@ public class Gestor {
         grafo.imprimirMatrizAdyacencia(origen);
     }
 
-    public String obtenerVerticeEnHash(int indice, long n) {
+    public String obtenerVerticeEnHash(long n) {
         String contenido;
-        HashNode v = hash.getNumero(hash.hashing(indice), n);
+        HashNode v = hash.getNumero(n);
         if (v != null) {
-            contenido = " El numero: " + hash.getNumero(indice, n).getVertice().getNumeroVertice() + " Etiqueta:" + hash.getNumero(indice, n).getVertice().getEtiqueta() + " Se encuentra en la posicion " + indice;
+       
+            contenido = " El numero de vertice:" + hash.getNumero(n).getVertice().getNumeroVertice() + ",Etiqueta:" + hash.getNumero(n).getVertice().getEtiqueta() + ",Posicion en el hash:" + v.getPosicion();
+           
         } else {
             contenido = "No existe ningun registro que corresponda";
         }
@@ -80,10 +79,6 @@ public class Gestor {
             vertice.setEtiqueta(grafo.getVertices()[i].getEtiqueta());
             vertice.setNumeroVertice(grafo.getVertices()[i].getNumeroVertice());
 
-//            Arco arco = new Arco();
-//            arco.setPeso(grafo.getVertices()[i].getSucesor().get(i).getPeso());
-//            arco.setPunteroVertice(grafo.getVertices()[i].getSucesor().get(i).getPunteroVertice());
-//            vertice.setSucesor(arco);
             hash.agregarValor(hash.hashing(i), new HashNode(vertice));
         }
 

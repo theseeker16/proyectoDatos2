@@ -25,7 +25,7 @@ public class Main {
     static Gestor gestor = new Gestor();
 
     public static void main(String[] args) throws IOException {
-       
+
         int opcion = 0;
         do {
             System.out.println("1.Mostrar nombres de ubicaciones del mapa");
@@ -54,20 +54,24 @@ public class Main {
                 break;
             case 2:
                 int indice;
-                int a;
+
                 System.out.println("Inserte un el indice del vertice a  buscar");
                 indice = Integer.parseInt(br.readLine());
 
-                System.out.println("Inserte la etiqueta del vertice");
-                a = Integer.parseInt(br.readLine());
-
-                System.out.println(gestor.obtenerVerticeEnHash(indice, a));
+                System.out.println("------------------------------------------------------------");
+                System.out.println(gestor.obtenerVerticeEnHash(indice));
+                System.out.println("------------------------------------------------------------");
                 break;
             case 3:
+               
                 System.out.println("Ingrese el origen");
                 origen = Integer.parseInt(br.readLine());
-
-                gestor.imprimirMatrizAdyacenciaBusqueda(origen);
+                 System.out.println();
+                for (int i = 1; i < 25; i++) {
+                     System.out.print("\t"+i);
+                }
+                System.out.println();
+                System.out.print(origen + " | ");gestor.imprimirMatrizAdyacenciaBusqueda(origen);
                 break;
             case 4:
                 gestor.imprimirMatrizAdyacenciaCompleta();
@@ -78,8 +82,10 @@ public class Main {
 
                 System.out.println("Ingrese el destino");
                 int destino = Integer.parseInt(br.readLine());
-
-                gestor.caminoCorto(origen, destino);
+                
+                System.out.println("------------------------------------------------------------");
+                System.out.println(gestor.caminoCorto(origen, destino));
+                System.out.println("------------------------------------------------------------");
                 break;
             case 6:
                 break;

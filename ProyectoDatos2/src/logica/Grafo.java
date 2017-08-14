@@ -166,7 +166,7 @@ public class Grafo {
 
         //Epheria Pass a Oldster's Bridge Post
         Vsucesor = this.vertices[14];
-        Asucesor = new Arco(150, Vsucesor);
+        Asucesor = new Arco(1500, Vsucesor);
         this.vertices[12].setSucesor(Asucesor);
         this.costos[12][14] = Asucesor.getPeso();
 
@@ -259,6 +259,12 @@ public class Grafo {
         Asucesor = new Arco(360, Vsucesor);
         this.vertices[23].setSucesor(Asucesor);
         this.costos[23][24] = Asucesor.getPeso();
+
+        //Catfishman Camp a Northern Kaia Mountain Summit
+        Vsucesor = this.vertices[23];
+        Asucesor = new Arco(800, Vsucesor);
+        this.vertices[21].setSucesor(Asucesor);
+        this.costos[21][23] = Asucesor.getPeso();
 
     }
 
@@ -365,9 +371,10 @@ public class Grafo {
 
     //Imprime la matriz de adyacencia pero solo del origen que se pidio
     public void imprimirMatrizAdyacencia(int origen) {
+        String fila = "";
         String matriz = "";
-        for (int i = 1; i < this.costos.length; i++) {
-            for (int j = 1; j < this.costos[i].length; j++) {
+        for (int i = 1; i < 25; i++) {
+            for (int j = 1; j < 25; j++) {
                 if (i == origen) {
                     if (this.costos[i][j] != 10000) {
                         System.out.print("\033[35m" + this.costos[i][j] + "\t");
@@ -382,8 +389,9 @@ public class Grafo {
         System.out.print("Posiciones dentro de la matriz");
         System.out.println(matriz);
         System.out.println();
+
     }
-    
+
     //Imprime la matriz completa de adyacencia
     public void imprimirMatrizAdyacenciaCompleta() {
 
